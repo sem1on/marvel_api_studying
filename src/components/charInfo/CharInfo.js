@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import useMarvelService from '../../services/MarvelService';
@@ -79,11 +80,13 @@ const View = ({char}) => {
                 {comics.length > 0 ? null : 'There is no comics with this character'}
                 {
                     comics.map((item, i) => {
-                        // eslint-disable-next-line
                         if (i > 9) return;
+                        const comicId = item.resourceURI.slice(-5);
                         return (
                             <li key={i} className="char__comics-item">
-                                {item.name}
+                                <Link to={`/comics/${comicId}`}>
+                                    {item.name}
+                                </Link>
                             </li>
                         )
                     })

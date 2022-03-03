@@ -1,43 +1,26 @@
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-import { useState } from "react";
 import AppHeader from "../appHeader/AppHeader";
-import AppBanner from "../appBanner/AppBanner";
-import RandomChar from "../randomChar/RandomChar";
-import CharList from "../charList/CharList";
-import CharInfo from "../charInfo/CharInfo";
-import ErrorBoundaries from "../errorBoundaries/ErrorBoundaries";
+import { MainPage, ComicsPage, Page404, SingleComicPage } from "../pages";
 
-import decoration from '../../resources/img/vision.png';
-import ComicsList from "../comicsList/ComicsList";
 
 const App = () => {
-    
-    const [selectedChar, setChar] = useState(null);
-
-    const onCharSelected = (id) => {
-        setChar(id);
-    }
 
     return (
-        <div className="app">
-            <AppHeader/>
-            <main>
-                {/* <ErrorBoundaries>
-                    <RandomChar/>
-                </ErrorBoundaries>
-                <div className="char__content">
-                    <ErrorBoundaries>
-                        <CharList onCharSelected={onCharSelected}/>
-                    </ErrorBoundaries>
-                    <ErrorBoundaries>
-                        <CharInfo charId={selectedChar}/>
-                    </ErrorBoundaries>
-                </div>
-                <img className="bg-decoration" src={decoration} alt="vision"/> */}
-                <AppBanner/>
-                <ComicsList/>
-            </main>
-        </div>
+        <Router>
+            <div className="app">
+                <AppHeader/>
+                <main>
+                    <Routes>
+                        <Route path="/" element={<MainPage/>}/>
+                        <Route path="/comics" element={<ComicsPage/>}/>
+                        <Route path="/comics/:comicId" element={<SingleComicPage/>}/>
+                        <Route path="*" element={<Page404/>}/>
+                    </Routes>
+                </main>
+            </div>  
+        </Router>
+
     )
 }
 
